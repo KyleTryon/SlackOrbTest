@@ -1,0 +1,18 @@
+version: 2.1
+orbs: 
+#my webhook: https://hooks.slack.com/services/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
+#slack orb
+#Create your key here: https://api.slack.com/incoming-webhooks
+description: A notification orb for slack. Submit messages to your slack channels.
+commands:
+  notify:
+    description: Notify a slack channel with a custom message
+    parameters:
+      webhook:
+        type: string
+        default: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+      message:
+        type: string
+        default: Your job on CircleCI has completed.
+    steps:
+      - run: curl -X POST -H 'Content-type:\ application/json' --data '{"text":"<< parameters.message >>"}' << parameters.webhook >>
