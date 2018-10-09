@@ -10,3 +10,4 @@ jobs:
     steps:
       - slack/notify:
         webhook: https://hooks.slack.com/services/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
+        message: testing
