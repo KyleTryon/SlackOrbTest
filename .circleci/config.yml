@@ -9,12 +9,10 @@ jobs:
       - image: circleci/node
     steps:
       - run: |
-          sudo apt-get install jq
+          sudo apt-get -q install jq
           SLACK_BUILD_DATA=$(curl -s https://circleci.com/api/v1.1/project/github/KyleTryon/SlackOrbTest/10?circle-token=${CIRCLECI_TOKEN})
-          echo "$SLACK_BUILD_DATA" | jq '.status'
           SLACK_BUILD_STATUS=$(echo "$SLACK_BUILD_DATA" | jq '.status')
-          echo $SLACK_BUILD_STATUS
-          if [ "$SLACK_CIRCLECI_STATUS" = '"success"' ]; then
+          if [ "$SLACK_BUILD_STATUS" = '"success"' ]; then
               echo "sucessful job"
           else
               echo Issue with job "$SLACK_BUILD_STATUS"
