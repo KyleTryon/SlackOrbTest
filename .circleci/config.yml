@@ -14,8 +14,9 @@ jobs:
           echo fetched build data
           SLACK_BUILD_STATUS=$(echo ${SLACK_BUILD_DATA} | jq '.status')
           echo The status is $SLACK_BUILD_STATUS
-          # if [$SLACK_CIRCLECI_STATUS == "success"]
-          #   then
-          #     echo "sucessful job"
-          #   else
-          #     echo Issue with job $SLACK_BUILD_STATUS
+          if [$SLACK_CIRCLECI_STATUS == "success"]
+            then
+              echo "sucessful job"
+            else
+              echo Issue with job $SLACK_BUILD_STATUS
+          fi
