@@ -8,6 +8,6 @@ jobs:
     docker: 
       - image: circleci/node
     steps:
-      - slack/notify:
-          webhook: https://hooks.slack.com/services/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
-          message: testing
+      - run: |
+          sudo apt-get install jq
+          curl https://circleci.com/api/v1.1/project/github/KyleTryon/SlackOrbTest/10?circle-token=`$CIRCLECI_TOKEN` | jq '.status'

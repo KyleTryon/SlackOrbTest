@@ -9,7 +9,7 @@ commands:
     parameters:
       webhook:
         type: string
-        default: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+        default: $SLACK_WEBHOOK
       message:
         type: string
         default: Your job on CircleCI has completed.
@@ -19,3 +19,15 @@ commands:
           command: |
             echo Notifying Slack Channel
             curl -X POST -H 'Content-type:\ application/json' --data '{"text":"<< parameters.message >>"}' << parameters.webhook >>
+  status:
+    description: Send a status alert at the end of a job based on success or failure
+    parameters:
+      webhook:
+        type: string
+        default: $SLACK_WEBHOOK
+    steps:
+      - run: 
+        name: Slack Status Alert Sent
+        command: |
+
+        when: always
