@@ -12,7 +12,7 @@ jobs:
           sudo apt-get install jq
           SLACK_BUILD_DATA=$(curl -s https://circleci.com/api/v1.1/project/github/KyleTryon/SlackOrbTest/10?circle-token=${CIRCLECI_TOKEN})
           SLACK_BUILD_STATUS=$(echo "${SLACK_BUILD_DATA}" | jq '.status')
-          if [ "$SLACK_CIRCLECI_STATUS" == '"success"' ]
+          if [ "$SLACK_CIRCLECI_STATUS" = '"success"' ]
             then
               echo "sucessful job"
             else
