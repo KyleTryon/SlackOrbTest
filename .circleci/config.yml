@@ -9,5 +9,4 @@ jobs:
       - image: circleci/node
     steps:
       - slack/status
-
-#testing. No job created?
+#reset project
