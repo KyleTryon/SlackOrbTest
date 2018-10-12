@@ -1,5 +1,5 @@
 version: 2.1
-#slack orb
+#slack orb 0.2.7
 #Create your key here: https://api.slack.com/incoming-webhooks
 orbs:
 description: A notification orb for slack. Submit messages to your slack channels.
