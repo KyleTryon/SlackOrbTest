@@ -8,5 +8,4 @@ jobs:
     docker: 
       - image: circleci/node
     steps:
-      - slack/status
-#reset project
+      - slack/notify
