@@ -8,6 +8,4 @@ jobs:
     docker: 
       - image: circleci/node
     steps:
-      - slack/notify:
-          message: testing env var in parameters. This test is for notify/webhook
-          #removed webhook
+      - slack/status
