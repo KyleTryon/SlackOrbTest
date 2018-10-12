@@ -1,19 +1,13 @@
 version: 2.1
 
 orbs:
-  slack: sandbox/slack@dev:0.2
+  slack: sandbox/slack@dev:0.2.5
 
 jobs:
   build:
     docker: 
       - image: circleci/node
     steps:
-      - run: |
-          sudo apt-get -q install jq
-          SLACK_BUILD_DATA=$(curl -s https://circleci.com/api/v1.1/project/github/KyleTryon/SlackOrbTest/10?circle-token=${CIRCLECI_TOKEN})
-          SLACK_BUILD_STATUS=$(echo "$SLACK_BUILD_DATA" | jq '.status')
-          if [ "$SLACK_BUILD_STATUS" = '"success"' ]; then
-              echo "sucessful job"
-          else
-              echo Issue with job "$SLACK_BUILD_STATUS"
-          fi
+      - slack/notify:
+          webhook: https://hooks.slack.com/services/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
+          message: testing env var in parameters. This test is for notify/webhook

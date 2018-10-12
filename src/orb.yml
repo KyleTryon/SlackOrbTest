@@ -4,12 +4,14 @@ orbs:
 #Create your key here: https://api.slack.com/incoming-webhooks
 description: A notification orb for slack. Submit messages to your slack channels.
 commands:
+  ## NOTIFY ##
   notify:
     description: Notify a slack channel with a custom message
     parameters:
       webhook:
+        description: Enter either your Webhook value or use the CircleCI UI to add your token under the 'SLACK_WEBHOOK' env var
         type: string
-        default: $SLACK_WEBHOOK
+        default: ${SLACK_WEBHOOK}
       message:
         type: string
         default: Your job on CircleCI has completed.
@@ -17,17 +19,31 @@ commands:
       - run: 
           name: Slack Notification
           command: |
+            # TODO: Check that SLACK_WEBHOOK exists
             echo Notifying Slack Channel
             curl -X POST -H 'Content-type:\ application/json' --data '{"text":"<< parameters.message >>"}' << parameters.webhook >>
+  ## STATUS ##
   status:
     description: Send a status alert at the end of a job based on success or failure
     parameters:
       webhook:
+        description: Enter either your Webhook value or use the CircleCI UI to add your token under the 'SLACK_WEBHOOK' env var
         type: string
-        default: $SLACK_WEBHOOK
+        default: ${SLACK_WEBHOOK}
+      circletoken:
+        description: Input either your CircleCI personal token [WARNING NEVER DO THIS], or use the CircleCI UI to add your token under the 'CIRCLECI_TOKEN' env var
+        type: string
+        default: ${CIRCLECI_TOKEN}
     steps:
       - run: 
-        name: Slack Status Alert Sent
-        command: |
-
-        when: always
+          name: Slack Status Alert Sent
+          command: |
+            sudo apt-get -q install jq
+            SLACK_BUILD_DATA=$(curl -s https://circleci.com/api/v1.1/project/github/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_PREVIOUS_BUILD_NUM}?circle-token=<< parameters.circletoken >>)
+            SLACK_BUILD_STATUS=$(echo "$SLACK_BUILD_DATA" | jq '.status')
+            if [ "$SLACK_BUILD_STATUS" = '"success"' ]; then
+                curl -X POST -H 'Content-type:\ application/json' --data '{"text":"%F0%9F%8E%89Build%2010%20for%20project%20x%20has%20successfully%20built%20%5Cn%20BuildURL"}' << parameters.webhook >>
+            else
+                curl -X POST -H 'Content-type:\ application/json' --data '{"text":"%F0%9F%9B%91Build%2010%20for%20project%20x%20has%20failed%20%5Cn%20Error%3A%20%5Cn%20BuildURL"}' << parameters.webhook >>
+            fi
+          when: always
