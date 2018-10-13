@@ -1,5 +1,5 @@
 version: 2.1
-#slack orb 0.2.8
+#slack orb 0.2.9
 #Create your key here: https://api.slack.com/incoming-webhooks
 orbs:
 description: A notification orb for slack. Submit messages to your slack channels.
@@ -42,8 +42,8 @@ commands:
             SLACK_BUILD_DATA=$(curl -s https://circleci.com/api/v1.1/project/github/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_PREVIOUS_BUILD_NUM}?circle-token=<< parameters.circletoken >>)
             SLACK_BUILD_STATUS=$(echo "$SLACK_BUILD_DATA" | jq '.status')
             if [ "$SLACK_BUILD_STATUS" = '"success"' ]; then
-                curl -X POST -H 'Content-type:\ application/json' --data '{"text":"Job "${CIRCLE_PREVIOUS_BUILD_NUM}" for project "${CIRCLE_PROJECT_REPONAME}" has successfully built \n "${CIRCLE_BUILD_URL}""}' << parameters.webhook >>
+                curl -X POST -H "Content-type:\ application/json" --data "{\"text\":\"Job \"$CIRCLE_PREVIOUS_BUILD_NUM\" for project \"$CIRCLE_PROJECT_REPONAME\" has successfully built \n \"$CIRCLE_BUILD_URL\"}" << parameters.webhook >>
             else
-                curl -X POST -H 'Content-type:\ application/json' --data '{"text":"Job "${CIRCLE_PREVIOUS_BUILD_NUM}" for project "${CIRCLE_PROJECT_REPONAME}" has failed \n Error:\ \n "${CIRCLE_BUILD_URL}""}' << parameters.webhook >>
+                curl -X POST -H 'Content-type:\ application/json' --data "{\"text\":\"Job \"$CIRCLE_PREVIOUS_BUILD_NUM\" for project \"$CIRCLE_PROJECT_REPONAME\" has failed \n \"$CIRCLE_BUILD_URL\"}" << parameters.webhook >>
             fi
           when: always
