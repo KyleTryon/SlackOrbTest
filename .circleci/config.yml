@@ -1,7 +1,7 @@
 version: 2.1
 #complaining orb doesnt exist again
 orbs:
-  slack: sandbox/slack@dev:0.2.16
+  slack: sandbox/slack@dev:0.2.17
 
 jobs:
   build:
