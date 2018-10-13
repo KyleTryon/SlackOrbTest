@@ -1,5 +1,5 @@
 version: 2.1
-#slack orb 0.2.13
+#slack orb 0.2.14
 #Create your key here: https://api.slack.com/incoming-webhooks
 orbs:
 description: A notification orb for slack. Submit messages to your slack channels.
@@ -41,9 +41,10 @@ commands:
             sudo apt-get -q install jq
             SLACK_BUILD_DATA=$(curl -s https://circleci.com/api/v1.1/project/github/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_PREVIOUS_BUILD_NUM}?circle-token=<< parameters.circletoken >>)
             SLACK_BUILD_STATUS=$(echo "$SLACK_BUILD_DATA" | jq '.status')
+            echo The current status is $SLACK_BUILD_STATUS
             if [ "$SLACK_BUILD_STATUS" = '"success"' ]; then
-                curl -X POST -H 'Content-type:\ application/json' --data '{"text":"Success"}' << parameters.webhook >>
+                curl -X POST -H 'Content-type:\ application/json' --data '{"text":"Success '"$CIRCLE_BUILD_URL"'"}' << parameters.webhook >>
             else
-                curl -X POST -H 'Content-type:\ application/json' --data '{"text":"Fail"}' << parameters.webhook >>
+                curl -X POST -H 'Content-type:\ application/json' --data '{"text":"Fail '"$CIRCLE_BUILD_URL"'"}' << parameters.webhook >>
             fi
           when: always
