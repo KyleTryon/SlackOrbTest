@@ -1,7 +1,7 @@
 version: 2.1
 #forgot to publish
 orbs:
-  slack: sandbox/slack@dev:0.2.17
+  slack: sandbox/slack@dev:0.2.18
 
 jobs:
   build:
