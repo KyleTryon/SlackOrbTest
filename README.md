@@ -26,14 +26,14 @@ jobs:
 - #### Notify
 
 |  Usage | slack/notify   |
-| ------------ | ------------ | ------------ | ------------ |
+| ------------ | ------------ |
 | **Description:**  | Notify a slack channel with a custom message  |   
 |  **Parameters:** | -  **webhook: **Enter either your Webhook value or use the CircleCI UI to add your token under the `SLACK_WEBHOOK` environment variable <br><br> - **message:** Enter your custom message to send to your Slack channel.  |
 
 - #### Status
 
 |  Usage | slack/status   |
-| ------------ | ------------ | ------------ | ------------ |
+| ------------ | ------------ |
 | **Description:**  | Send a status alert at the end of a job based on success or failure  |   
 |  **Parameters:** | -  **webhook: **Enter either your Webhook value or use the CircleCI UI to add your token under the `SLACK_WEBHOOK` environment variable <br><br> - **circletoken:** [Enter your CircleCI Personal API](https://circleci.com/docs/2.0/managing-api-tokens/#creating-a-personal-api-token "Enter your CircleCI Personal API") token value [through the UI in the project settings](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project "through the UI in the project settings") under the environment variable `CIRCLECI_TOKEN`  |
 
