@@ -1,5 +1,5 @@
 version: 2.1
-#slack orb 0.2.18
+#slack orb 0.2.19
 #Create your key here: https://api.slack.com/incoming-webhooks
 orbs:
 description: A notification orb for slack. Submit messages to your slack channels.
@@ -45,7 +45,7 @@ commands:
             #Check if currently running
             if [ "$SLACK_BUILD_STATUS" = '"running"' ]; then
               echo The job is still showing as running. Sleeping and checking again.
-              while ["$SLACK_BUILD_STATUS" = '"running"']; do
+              while [ "$SLACK_BUILD_STATUS" = '"running"' ]; do
                 echo looping while waiting for status
                 sleep 200
                 SLACK_BUILD_DATA=$(curl -s https://circleci.com/api/v1.1/project/github/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BUILD_NUM}?circle-token=<< parameters.circletoken >>)
