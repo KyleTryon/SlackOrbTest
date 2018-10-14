@@ -1,5 +1,5 @@
 version: 2.1
-#slack orb 0.2.25
+#slack orb 0.2.26
 #Create your key here: https://api.slack.com/incoming-webhooks
 orbs:
 description: A notification orb for slack. Submit messages to your slack channels.
@@ -44,7 +44,7 @@ commands:
             echo The current status is $SLACK_BUILD_STATUS
             if [ "$SLACK_BUILD_STATUS" != '"failed"' ]; then
                 #If Successful
-                curl -X POST -H 'Content-type:\ application/json' --data '{ "attachments": [ { "fallback": "Job completed successfully - URL", "text": "Job has completed successfully", "fields": [ { "title": "Project", "value": "'$CIRCLE_PROJECT_REPONAME'", "short": true }, { "title": "Environment", "value": "production", "short": true } ], "color": "#F35A00" } ] }' << parameters.webhook >>
+                curl -X POST -H 'Content-type:\ application/json' --data '{ "attachments": [ { "fallback": "Job completed successfully - URL", "text": "Job has completed successfully", "fields": [ { "title": "Project", "value": "'$CIRCLE_PROJECT_REPONAME'", "short": true }, { "title": "Job Number", "value": "'$CIRCLE_BUILD_NUM'", "short": true } ], "actions": [ { "type": "button", "text": "Visit Job", "url": "'$CIRCLE_BUILD_URL'" } ], "color": "#1CBF43" } ] }' << parameters.webhook >>
             else
                 #If Failed
                 curl -X POST -H 'Content-type:\ application/json' --data '{"text":"failure"}' << parameters.webhook >>
