@@ -43,7 +43,8 @@ commands:
             SLACK_BUILD_STATUS=$(echo "$SLACK_BUILD_DATA" | jq '.status')
             echo The current status is $SLACK_BUILD_STATUS
             if [ "$SLACK_BUILD_STATUS" != '"failed"' ]; then
-                #If Successful
+                #If not failed
+                sleep 5000 #issue with API returning running, waiting might help
                 curl -X POST -H 'Content-type:\ application/json' --data '{ "attachments": [ { "fallback": "Job completed successfully - '$CIRCLE_BUILD_URL'", "text": "Job has completed successfully", "fields": [ { "title": "Project", "value": "'$CIRCLE_PROJECT_REPONAME'", "short": true }, { "title": "Job Number", "value": "'$CIRCLE_BUILD_NUM'", "short": true } ], "actions": [ { "type": "button", "text": "Visit Job", "url": "'$CIRCLE_BUILD_URL'" } ], "color": "#1CBF43" } ] }' << parameters.webhook >>
             else
                 #If Failed
