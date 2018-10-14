@@ -24,7 +24,7 @@ commands:
             curl -X POST -H 'Content-type:\ application/json' --data '{"text":"<< parameters.message >>"}' << parameters.webhook >>
   ## STATUS ##
   status:
-    description: Send a status alert at the end of a job based on success or failure
+    description: Send a status alert at the end of a job based on success or failure. Must be the last step in a job.
     parameters:
       webhook:
         description: Enter either your Webhook value or use the CircleCI UI to add your token under the 'SLACK_WEBHOOK' env var
