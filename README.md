@@ -28,7 +28,7 @@ jobs:
 |  Usage | slack/notify   |
 | ------------ | ------------ |
 | **Description:**  | Notify a slack channel with a custom message  |   
-|  **Parameters:** | -  **webhook: **Enter either your Webhook value or use the CircleCI UI to add your token under the `SLACK_WEBHOOK` environment variable <br><br> - **message:** Enter your custom message to send to your Slack channel.  |
+|  **Parameters:** | -  **webhook:** Enter either your Webhook value or use the CircleCI UI to add your token under the `SLACK_WEBHOOK` environment variable <br><br> - **message:** Enter your custom message to send to your Slack channel.  |
 
 - #### Status
 
