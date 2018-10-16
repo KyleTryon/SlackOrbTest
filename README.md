@@ -35,11 +35,13 @@ jobs:
 |  Usage | slack/status   |
 | ------------ | ------------ |
 | **Description:**  | Send a status alert at the end of a job based on success or failure. Must be last step in job  |   
-|  **Parameters:** | -  **webhook:** Enter either your Webhook value or use the CircleCI UI to add your token under the `SLACK_WEBHOOK` environment variable|
+|  **Parameters:** | -  **webhook:** Enter either your Webhook value or use the CircleCI UI to add your token under the `SLACK_WEBHOOK` environment variable <br> <br> -  **fail_only:** `false` by default. If set to `true, successful jobs will _not_ send alerts |
+
+
 
 TODO:
 
 | Task | Status |
 | ------------ | ------------ |
 | Allow option of tagging users| 0% |
-| Make skipping success messages on `status` optional | 0% |
+

@@ -1,11 +1,10 @@
 version: 2.1
 orbs:
-  slack: sandbox/slack@dev:0.2.32
- #testing without webhook
+  slack: sandbox/slack@1.1.0
 jobs:
   build:
     docker: 
       - image: circleci/node
     steps:
-      - run: exit 0
+      - run: exit 0 #toggle this to force success or status for testing
       - slack/status
