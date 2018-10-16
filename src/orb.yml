@@ -44,6 +44,7 @@ commands:
       - run: 
           name: Slack - Status Alert Sent
           command: |
+            echo Job faulure status:\ $SLACK_STATUS_FAIL
             if [ "SLACK_STATUS_FAIL" != "true" ]; then
                 #If not failed
                 curl -X POST -H 'Content-type:\ application/json' --data '{ "attachments": [ { "fallback": "Job completed successfully - '$CIRCLE_BUILD_URL'", "text": "Job has completed successfully", "fields": [ { "title": "Project", "value": "'$CIRCLE_PROJECT_REPONAME'", "short": true }, { "title": "Job Number", "value": "'$CIRCLE_BUILD_NUM'", "short": true } ], "actions": [ { "type": "button", "text": "Visit Job", "url": "'$CIRCLE_BUILD_URL'" } ], "color": "#1CBF43" } ] }' << parameters.webhook >>
