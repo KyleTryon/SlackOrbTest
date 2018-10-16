@@ -4,3 +4,5 @@
 
 ## 1.1.0: 10/xx/2018
 * Allow suppression of successful messages with new parameter 'fail_only' when set to 'true'.
+* Updated Alert job name to no longer imply the alert has already been sent
+* Reflect status in shell as well as webhook
