@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  slack: sandbox/slack@dev:0.2.30
+  slack: sandbox/slack@dev:0.2.31
  #testing without webhook
 jobs:
   build:
