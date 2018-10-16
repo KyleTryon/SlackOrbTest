@@ -1,5 +1,5 @@
 version: 2.1
-#slack orb 0.2.32
+#slack orb dev:1.1.0
 #Create your key here: https://api.slack.com/incoming-webhooks
 orbs:
 description: A notification orb for slack. Submit messages to your slack channels.
@@ -37,6 +37,10 @@ commands:
         description: Enter either your Webhook value or use the CircleCI UI to add your token under the 'SLACK_WEBHOOK' env var
         type: string
         default: ${SLACK_WEBHOOK}
+      fail_only:
+        description: If 'true', notifications successful jobs will not be sent
+        type: string
+        default: "false"
     steps:
       - run:
           name: Slack - Setting Failure Condition
@@ -57,9 +61,14 @@ commands:
               echo "Please input your SLACK_WEBHOOK value either in the settings for this project, or as a parameter for this orb."
               exit 1
             else
+              #If successful
               if [ "$SLACK_BUILD_STATUS" = "success" ]; then
-                #If successful
-                curl -X POST -H 'Content-type: application/json' --data '{ "attachments": [ { "fallback": "Job completed successfully - '$CIRCLE_BUILD_URL'", "text": "Job has completed successfully", "fields": [ { "title": "Project", "value": "'$CIRCLE_PROJECT_REPONAME'", "short": true }, { "title": "Job Number", "value": "'$CIRCLE_BUILD_NUM'", "short": true } ], "actions": [ { "type": "button", "text": "Visit Job", "url": "'$CIRCLE_BUILD_URL'" } ], "color": "#1CBF43" } ] }' << parameters.webhook >>
+                if [ << parameters.webhook >> = "true"]; then
+                  echo The job completed successfully
+                  echo '"fail_only" is set to "true". No Slack notification sent.'
+                else
+                  curl -X POST -H 'Content-type: application/json' --data '{ "attachments": [ { "fallback": "Job completed successfully - '$CIRCLE_BUILD_URL'", "text": "Job has completed successfully", "fields": [ { "title": "Project", "value": "'$CIRCLE_PROJECT_REPONAME'", "short": true }, { "title": "Job Number", "value": "'$CIRCLE_BUILD_NUM'", "short": true } ], "actions": [ { "type": "button", "text": "Visit Job", "url": "'$CIRCLE_BUILD_URL'" } ], "color": "#1CBF43" } ] }' << parameters.webhook >>
+                fi
               else
                 #If Failed
                 curl -X POST -H 'Content-type: application/json' --data '{ "attachments": [ { "fallback": "A job has failed - '$CIRCLE_BUILD_URL'", "text": "A job has failed", "fields": [ { "title": "Project", "value": "'$CIRCLE_PROJECT_REPONAME'", "short": true }, { "title": "Job Number", "value": "'$CIRCLE_BUILD_NUM'", "short": true } ], "actions": [ { "type": "button", "text": "Visit Job", "url": "'$CIRCLE_BUILD_URL'" } ], "color": "#ed5c5c" } ] }' << parameters.webhook >>
