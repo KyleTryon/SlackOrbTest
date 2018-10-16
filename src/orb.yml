@@ -30,7 +30,7 @@ commands:
             else
               # Webhook properly set.
               echo Notifying Slack Channel
-              curl -X POST -H 'Content-type:\ application/json' --data '{"text":"<< parameters.message >> <@<< parameters.members >> >"}' << parameters.webhook >>
+              curl -X POST -H 'Content-type:\ application/json' --data '{"text":"<< parameters.message >> &lt;@<< parameters.members >>&gt;"}' << parameters.webhook >>
             fi
             
   ## STATUS ##
