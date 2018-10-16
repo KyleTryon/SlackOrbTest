@@ -38,4 +38,8 @@ jobs:
 |  **Parameters:** | -  **webhook:** Enter either your Webhook value or use the CircleCI UI to add your token under the `SLACK_WEBHOOK` environment variable|
 
 TODO:
- - Allow option of tagging users
+
+| Task | Status |
+| ------------ | ------------ |
+| Allow option of tagging users| 0% |
+| Make skipping success messages on `status` optional | 0% |
