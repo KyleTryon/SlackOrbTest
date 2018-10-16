@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  slack: sandbox/slack@dev1.2.0
+  slack: sandbox/slack@dev:1.2.0
 jobs:
   build:
     docker: 
