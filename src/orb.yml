@@ -38,12 +38,15 @@ commands:
       - run:
           name: Slack - Fetching status
           command: |
-            SLACK_STATUS_FAIL="true"
+            
+            echo 'export SLACK_STATUS_FAIL="true"' >> $BASH_ENV
+            source $BASH_ENV
             echo Job faulure status:\ $SLACK_STATUS_FAIL
           when: on_fail
       - run: 
           name: Slack - Status Alert Sent
           command: |
+            source $BASH_ENV
             echo Job faulure status:\ $SLACK_STATUS_FAIL
             if [ "SLACK_STATUS_FAIL" != "true" ]; then
                 #If not failed
