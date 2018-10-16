@@ -37,7 +37,7 @@ commands:
     steps:
       - run:
           name: Slack - Fetching status
-          command: SLACK_STATUS_FAIL = true
+          command: SLACK_STATUS_FAIL="true"
           when: on_fail
       - run: 
           name: Slack - Status Alert Sent
