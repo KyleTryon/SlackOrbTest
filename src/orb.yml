@@ -1,5 +1,5 @@
 version: 2.1
-#slack orb 0.2.31
+#slack orb 0.2.32
 #Create your key here: https://api.slack.com/incoming-webhooks
 orbs:
 description: A notification orb for slack. Submit messages to your slack channels.
@@ -21,8 +21,8 @@ commands:
           command: |
             # Provide error if no webhook is set and error. Otherwise continue
             if [ -z "$SLACK_WEBHOOK" ]; then
-              echo "NO SLACK WEBHOOK SET \
-              Please input your SLACK_WEBHOOK value either in the settings for this project, or as a parameter for this orb.""
+              echo "NO SLACK WEBHOOK SET"
+              echo "Please input your SLACK_WEBHOOK value either in the settings for this project, or as a parameter for this orb."
               exit 1
             else
               echo Notifying Slack Channel
@@ -51,11 +51,17 @@ commands:
       - run: 
           name: Slack - Status Alert Sent
           command: |
-            if [ "$SLACK_BUILD_STATUS" = "success" ]; then
+            if [ -z "$SLACK_WEBHOOK" ]; then
+              echo "NO SLACK WEBHOOK SET"
+              echo "Please input your SLACK_WEBHOOK value either in the settings for this project, or as a parameter for this orb."
+              exit 1
+            else
+              if [ "$SLACK_BUILD_STATUS" = "success" ]; then
                 #If successful
                 curl -X POST -H 'Content-type: application/json' --data '{ "attachments": [ { "fallback": "Job completed successfully - '$CIRCLE_BUILD_URL'", "text": "Job has completed successfully", "fields": [ { "title": "Project", "value": "'$CIRCLE_PROJECT_REPONAME'", "short": true }, { "title": "Job Number", "value": "'$CIRCLE_BUILD_NUM'", "short": true } ], "actions": [ { "type": "button", "text": "Visit Job", "url": "'$CIRCLE_BUILD_URL'" } ], "color": "#1CBF43" } ] }' << parameters.webhook >>
-            else
+              else
                 #If Failed
                 curl -X POST -H 'Content-type: application/json' --data '{ "attachments": [ { "fallback": "A job has failed - '$CIRCLE_BUILD_URL'", "text": "A job has failed", "fields": [ { "title": "Project", "value": "'$CIRCLE_PROJECT_REPONAME'", "short": true }, { "title": "Job Number", "value": "'$CIRCLE_BUILD_NUM'", "short": true } ], "actions": [ { "type": "button", "text": "Visit Job", "url": "'$CIRCLE_BUILD_URL'" } ], "color": "#ed5c5c" } ] }' << parameters.webhook >>
+              fi
             fi
           when: always

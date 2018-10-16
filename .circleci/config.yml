@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  slack: sandbox/slack@dev:0.2.31
+  slack: sandbox/slack@dev:0.2.32
  #testing without webhook
 jobs:
   build:
@@ -8,5 +8,4 @@ jobs:
       - image: circleci/node
     steps:
       - run: exit 0
-      - slack/notify:
-          message: testing message sending
+      - slack/status
