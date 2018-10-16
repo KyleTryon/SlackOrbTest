@@ -1,10 +1,12 @@
 version: 2.1
 orbs:
-  slack: sandbox/slack@1.1.0
+  slack: sandbox/slack@dev1.2.0
 jobs:
   build:
     docker: 
       - image: circleci/node
     steps:
       - run: exit 0 #toggle this to force success or status for testing
-      - slack/status
+      - slack/notify:
+          message: This is a custom notification that should ping the slackbot.
+          members:"USLACKBOT"
