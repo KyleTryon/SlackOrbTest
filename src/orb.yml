@@ -63,6 +63,7 @@ commands:
             else
               #If successful
               if [ "$SLACK_BUILD_STATUS" = "success" ]; then
+                echo "Fail_Only parameter: << parameters.fail_only >>"
                 if [ << parameters.fail_only >> = "true"]; then
                   echo The job completed successfully
                   echo '"fail_only" is set to "true". No Slack notification sent.'
