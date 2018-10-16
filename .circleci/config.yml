@@ -8,5 +8,5 @@ jobs:
       - image: circleci/node
     steps:
       - run: exit 0
-      - slack/notify
+      - slack/notify:
           message: testing message sending
