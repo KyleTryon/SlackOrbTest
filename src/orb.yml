@@ -51,6 +51,7 @@ commands:
       - run: 
           name: Slack - Status Alert Sent
           command: |
+            # Provide error if no webhook is set and error. Otherwise continue
             if [ -z "$SLACK_WEBHOOK" ]; then
               echo "NO SLACK WEBHOOK SET"
               echo "Please input your SLACK_WEBHOOK value either in the settings for this project, or as a parameter for this orb."
