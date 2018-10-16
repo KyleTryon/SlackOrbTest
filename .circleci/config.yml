@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  slack: sandbox/slack@dev:0.2.28
+  slack: sandbox/slack@dev:0.2.29
 
 jobs:
   build:
