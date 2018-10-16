@@ -19,9 +19,14 @@ commands:
       - run: 
           name: Slack Notification
           command: |
-            # TODO: Check that SLACK_WEBHOOK exists
-            echo Notifying Slack Channel
-            curl -X POST -H 'Content-type:\ application/json' --data '{"text":"<< parameters.message >>"}' << parameters.webhook >>
+            # Provide error if no webhook is set and error. Otherwise continue
+            if [ -z "$SLACK_WEBHOOK" ]; then
+              echo NO SLACK WEBHOOK SET \n Please input your SLACK_WEBHOOK value either in the settings for this project, or as a parameter for this orb.
+            else
+              echo Notifying Slack Channel
+              curl -X POST -H 'Content-type:\ application/json' --data '{"text":"<< parameters.message >>"}' << parameters.webhook >>
+            fi
+            
   ## STATUS ##
   status:
     description: Send a status alert at the end of a job based on success or failure. Must be the last step in a job.

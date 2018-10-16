@@ -7,5 +7,6 @@ jobs:
     docker: 
       - image: circleci/node
     steps:
-      - run: exit 1
-      - slack/status
+      - run: exit 0
+      - slack/notify
+          message: testing message sending
