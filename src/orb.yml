@@ -40,7 +40,7 @@ commands:
           name: Slack - Setting Success Condition
           command: |
             echo 'export SLACK_BUILD_STATUS="success"' >> $BASH_ENV
-          when: on_fail
+          when: on_success
       - run: 
           name: Slack - Status Alert Sent
           command: |
