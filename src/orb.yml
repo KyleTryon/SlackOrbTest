@@ -63,7 +63,7 @@ commands:
             else
               #If successful
               if [ "$SLACK_BUILD_STATUS" = "success" ]; then
-                if [ << parameters.webhook >> = "true"]; then
+                if [ << parameters.fail_only >> = "true"]; then
                   echo The job completed successfully
                   echo '"fail_only" is set to "true". No Slack notification sent.'
                 else
