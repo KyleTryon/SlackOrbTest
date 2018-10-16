@@ -35,11 +35,7 @@ jobs:
 |  Usage | slack/status   |
 | ------------ | ------------ |
 | **Description:**  | Send a status alert at the end of a job based on success or failure. Must be last step in job  |   
-<<<<<<< HEAD
 |  **Parameters:** | -  **webhook: **Enter either your Webhook value or use the CircleCI UI to add your token under the `SLACK_WEBHOOK` environment variable <br><br> - **circletoken:** [Enter your CircleCI Personal API](https://circleci.com/docs/2.0/managing-api-tokens/#creating-a-personal-api-token "Enter your CircleCI Personal API") token value [through the UI in the project settings](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project "through the UI in the project settings") under the environment variable `CIRCLECI_TOKEN`  |
 | **ISSUE** | API is returning "running" after a job has failed. The job runs "always" so the job has "failed" but is still running to create this report. Not yet clear if API needs more time or if the API is supposed to show "running". May cause issue. |
-=======
-|  **Parameters:** | -  **webhook:** Enter either your Webhook value or use the CircleCI UI to add your token under the `SLACK_WEBHOOK` environment variable <br><br> - **circletoken:** [Enter your CircleCI Personal API](https://circleci.com/docs/2.0/managing-api-tokens/#creating-a-personal-api-token "Enter your CircleCI Personal API") token value [through the UI in the project settings](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project "through the UI in the project settings") under the environment variable `CIRCLECI_TOKEN`  |
->>>>>>> dc9b49624390350680191eafb9ae6e878f472b8b
 
 
