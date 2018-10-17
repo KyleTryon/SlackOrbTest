@@ -9,4 +9,4 @@ jobs:
       - run: exit 0 #toggle this to force success or status for testing
       - slack/notify:
           message: This is a custom notification that should ping the slackbot.
-          members: "USLACKBOT,USER1,USER2,USER3"
+          mentions: "USLACKBOT,USER1,USER2,USER3"
