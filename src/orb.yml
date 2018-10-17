@@ -81,7 +81,7 @@ commands:
               if [ -n "<< parameters.mentions >>" ]; then
                 IFS="," read -ra MEMBERS \<<< "<< parameters.mentions >>"
                 for i in "${MEMBERS[@]}"; do
-                  MENTIONS="${MENTIONS}<@${i}> "
+                  MENTIONS="${MENTIONS}\<@${i}\> "
                 done
                 echo $MENTIONS
               fi
