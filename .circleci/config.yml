@@ -7,5 +7,4 @@ jobs:
       - image: circleci/node
     steps:
       - run: exit 0 #toggle this to force success or status for testing
-      - slack/notify:
-          message: This is a custom notification that should ping the slackbot.
+      - slack/status:
