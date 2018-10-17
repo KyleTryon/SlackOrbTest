@@ -83,6 +83,7 @@ commands:
                 for i in "${MEMBERS[@]}"; do
                   MENTIONS="${MENTIONS}<@${i}> "
                 done
+                echo $MENTIONS
               fi
               #If successful
               if [ "$SLACK_BUILD_STATUS" = "success" ]; then
