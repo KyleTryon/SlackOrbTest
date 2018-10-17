@@ -98,7 +98,7 @@ commands:
               else
                 #If Failed
                 curl -X POST -H 'Content-type: application/json' --data '{ "attachments": [ { "fallback": "A job has failed - '$CIRCLE_BUILD_URL'", "text": "A job has failed", "fields": [ { "title": "Project", "value": "'$CIRCLE_PROJECT_REPONAME'", "short": true }, { "title": "Job Number", "value": "'$CIRCLE_BUILD_NUM'", "short": true } ], "actions": [ { "type": "button", "text": "Visit Job", "url": "'$CIRCLE_BUILD_URL'" } ], "color": "#ed5c5c" } ] }' << parameters.webhook >>
-                echo Job failed. Alert sent.
+                echo "Job failed. Alert sent."
               fi
             fi
           when: always
