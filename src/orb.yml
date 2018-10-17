@@ -34,8 +34,8 @@ commands:
               if [ -n "<< parameters.mentions >>" ]; then
                 IFS="," read -ra MEMBERS \<<< "<< parameters.mentions >>"
                 for i in "${MEMBERS[@]}"; do
-                  #MENTIONS=$MENTIONS<@$i>
-                  echo $i
+                  MENTIONS="${MENTIONS}<@${i}>"
+                  echo $MENTIONS
                 done
               fi
               curl -X POST -H 'Content-type: application/json' --data '{ "attachments": [ { "fallback": "<< parameters.message >> - '$CIRCLE_BUILD_URL'", "text": "<< parameters.message >>", "fields": [ { "title": "Project", "value": "'$CIRCLE_PROJECT_REPONAME'", "short": true }, { "title": "Job Number", "value": "'$CIRCLE_BUILD_NUM'", "short": true } ], "actions": [ { "type": "button", "text": "Visit Job", "url": "'$CIRCLE_BUILD_URL'" } ], "color": "#333" } ] }' << parameters.webhook >>
