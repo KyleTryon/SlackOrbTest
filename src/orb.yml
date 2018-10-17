@@ -18,6 +18,7 @@ commands:
       mentions:
         description: A comma separated list of user IDs. No spaces.
         type: string
+        default: ""
     steps:
       - run: 
           name: Slack Notification
