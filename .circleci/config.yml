@@ -7,4 +7,5 @@ jobs:
       - image: circleci/node
     steps:
       - run: exit 0 #toggle this to force success or status for testing
-      - slack/status
+      - slack/status:
+          mentions: "USLACKBOT,USER1,USER2,USER3"
