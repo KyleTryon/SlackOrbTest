@@ -31,7 +31,7 @@ commands:
               # Webhook properly set.
               echo Notifying Slack Channel
               #Create Members string
-              if [ -n "<< parameters.members >>" ] then;
+              if [ -n "<< parameters.members >>" ]; then
                 IFS="," read -ra MEMBERS \<<< "<< parameters.members >>"
                 echo $MEMBERS
               fi
