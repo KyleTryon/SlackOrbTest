@@ -9,3 +9,4 @@ jobs:
       - run: exit 0 #toggle this to force success or status for testing
       - slack/status:
           mentions: "USLACKBOT,USER1,USER2,USER3"
+          #resubmit
