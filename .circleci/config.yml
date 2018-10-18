@@ -3,10 +3,22 @@ version: 2.1
 orbs:
   slack: sandbox/slack@dev:1.2.0
 jobs:
-  build:
+  notifyTest:
+    docker: 
+      - image: circleci/node
+    steps:
+      - run: exit 0 #toggle this to force success or status for testing
+      - slack/notify:
+          mentions: "USLACKBOT,USER1,USER2,USER3"
+  statusTest:
     docker: 
       - image: circleci/node
     steps:
       - run: exit 0 #toggle this to force success or status for testing
       - slack/status:
           mentions: "USLACKBOT,USER1,USER2,USER3"
+workflows:
+  TestSlack:
+    jobs:
+      - notifyTest
+      - statusTest
