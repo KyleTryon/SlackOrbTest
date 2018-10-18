@@ -3,6 +3,7 @@
 * Docs for mentions
 * `Notify` message now contains job information and link, the same as for `status`.
 * Internal env vars prefixed with `SLACK_` to reduce chance of collision.
+* New parameter for notification. `color` may now be set as a hex string.
 
 ## 1.1.0: 10/16/2018
 * Allow suppression of successful messages with new parameter 'fail_only' when set to 'true'.
