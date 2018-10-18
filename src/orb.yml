@@ -93,7 +93,7 @@ commands:
                 else
                   SLACK_MESSAGE='The job completed successfully mentions here'
                   echo $SLACK_MESSAGE
-                  curl -X POST -H 'Content-type:\ application/json' --data '{"text":"Allow me to reintroduce myself!"}' << parameters.webhook >>
+                  curl -X POST -H 'Content-type:\ application/json' --data '{"text":"'$SLACK_MESSAGE'"}' << parameters.webhook >>
                   echo "Job completed successfully. Alert sent."
                 fi
               else
