@@ -1,5 +1,4 @@
 version: 2.1
-  #resubmit
 orbs:
   slack: sandbox/slack@dev:1.2.0
 
