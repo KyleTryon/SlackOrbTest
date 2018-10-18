@@ -28,20 +28,11 @@ jobs:
 |  Usage | slack/notify   |
 | ------------ | ------------ |
 | **Description:**  | Notify a slack channel with a custom message  |   
-|  **Parameters:** | - **webhook:**  Enter either your Webhook value or use the CircleCI UI to add your token under the `SLACK_WEBHOOK` environment variable <br><br> - **message:** Enter your custom message to send to your Slack channel.  |
+|  **Parameters:** | - **webhook:**  Enter either your Webhook value or use the CircleCI UI to add your token under the `SLACK_WEBHOOK` environment variable <br><br> - **message:** Enter your custom message to send to your Slack channel.  <br> <br> - **mentions:** A comma separated list of Slack user IDs. example 'USER1,USER2,USER3'. Note, these are Slack User IDs, not usernames. The user ID can be found on the user's profile. <br> <br> - **color:** Color can be set for a notification to help differentiate alerts.|
 
 - #### Status
 
 |  Usage | slack/status   |
 | ------------ | ------------ |
 | **Description:**  | Send a status alert at the end of a job based on success or failure. Must be last step in job  |   
-|  **Parameters:** | -  **webhook:** Enter either your Webhook value or use the CircleCI UI to add your token under the `SLACK_WEBHOOK` environment variable <br> <br> -  **fail_only:** `false` by default. If set to `true, successful jobs will _not_ send alerts |
-
-
-
-TODO:
-
-| Task | Status |
-| ------------ | ------------ |
-| Allow option of tagging users| 0% |
-
+|  **Parameters:** | -  **webhook:** Enter either your Webhook value or use the CircleCI UI to add your token under the `SLACK_WEBHOOK` environment variable <br> <br> -  **fail_only:** `false` by default. If set to `true, successful jobs will _not_ send alerts <br> <br> - **mentions:** A comma separated list of Slack user IDs. example 'USER1,USER2,USER3'. Note, these are Slack User IDs, not usernames. The user ID can be found on the user's profile. | 

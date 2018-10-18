@@ -1,5 +1,5 @@
 version: 2.1
-#slack orb 1.1.0
+#slack orb dev:1.2.0
 #Create your key here: https://api.slack.com/incoming-webhooks
 orbs:
 description: A notification orb for slack. Submit messages to your slack channels.
@@ -13,8 +13,17 @@ commands:
         type: string
         default: ${SLACK_WEBHOOK}
       message:
+        description: Enter custom message.
         type: string
         default: Your job on CircleCI has completed.
+      color:
+        description: Hex color value for notification attachment color.
+        type: string
+        default: "#333333"
+      mentions:
+        description: A comma separated list of user IDs. No spaces.
+        type: string
+        default: ""
     steps:
       - run: 
           name: Slack Notification
@@ -25,8 +34,16 @@ commands:
               echo "Please input your SLACK_WEBHOOK value either in the settings for this project, or as a parameter for this orb."
               exit 1
             else
+              # Webhook properly set.
               echo Notifying Slack Channel
-              curl -X POST -H 'Content-type:\ application/json' --data '{"text":"<< parameters.message >>"}' << parameters.webhook >>
+              #Create Members string
+              if [ -n "<< parameters.mentions >>" ]; then
+                IFS="," read -ra SLACK_MEMBERS \<<< "<< parameters.mentions >>"
+                for i in "${SLACK_MEMBERS[@]}"; do
+                  SLACK_MENTIONS="${SLACK_MENTIONS}<@${i}> "
+                done
+              fi
+              curl -X POST -H 'Content-type: application/json' --data "{ \"attachments\": [ { \"fallback\": \"<< parameters.message >> - $CIRCLE_BUILD_URL\", \"text\": \"<< parameters.message >> $SLACK_MENTIONS\", \"fields\": [ { \"title\": \"Project\", \"value\": \"$CIRCLE_PROJECT_REPONAME\", \"short\": true }, { \"title\": \"Job Number\", \"value\": \"$CIRCLE_BUILD_NUM\", \"short\": true } ], \"actions\": [ { \"type\": \"button\", \"text\": \"Visit Job\", \"url\": \"$CIRCLE_BUILD_URL\" } ], \"color\": \"<< parameters.color >>\" } ] } " << parameters.webhook >>
             fi
             
   ## STATUS ##
@@ -41,6 +58,10 @@ commands:
         description: If 'true', notifications successful jobs will not be sent
         type: string
         default: "false"
+      mentions:
+        description: A comma separated list of user IDs. No spaces.
+        type: string
+        default: ""
     steps:
       - run:
           name: Slack - Setting Failure Condition
@@ -61,19 +82,27 @@ commands:
               echo "Please input your SLACK_WEBHOOK value either in the settings for this project, or as a parameter for this orb."
               exit 1
             else
+              #Create Members string
+              if [ -n "<< parameters.mentions >>" ]; then
+                IFS="," read -ra MEMBERS \<<< "<< parameters.mentions >>"
+                for i in "${MEMBERS[@]}"; do
+                  SLACK_MENTIONS="${SLACK_MENTIONS}<@${i}> "
+                done
+              fi
               #If successful
               if [ "$SLACK_BUILD_STATUS" = "success" ]; then
+                #Skip if fail_only
                 if [ << parameters.fail_only >> = true ]; then
-                  echo The job completed successfully
+                  echo "The job completed successfully"
                   echo '"fail_only" is set to "true". No Slack notification sent.'
                 else
-                  curl -X POST -H 'Content-type: application/json' --data '{ "attachments": [ { "fallback": "Job completed successfully - '$CIRCLE_BUILD_URL'", "text": "Job has completed successfully", "fields": [ { "title": "Project", "value": "'$CIRCLE_PROJECT_REPONAME'", "short": true }, { "title": "Job Number", "value": "'$CIRCLE_BUILD_NUM'", "short": true } ], "actions": [ { "type": "button", "text": "Visit Job", "url": "'$CIRCLE_BUILD_URL'" } ], "color": "#1CBF43" } ] }' << parameters.webhook >>
-                  echo Job completed successfully. Alert sent.
+                  curl -X POST -H 'Content-type: application/json' --data "{ \"attachments\": [ { \"fallback\": \"A job has succeed - $CIRCLE_BUILD_URL\", \"text\": \":tada: A job has succeeded! $SLACK_MENTIONS\", \"fields\": [ { \"title\": \"Project\", \"value\": \"$CIRCLE_PROJECT_REPONAME\", \"short\": true }, { \"title\": \"Job Number\", \"value\": \"$CIRCLE_BUILD_NUM\", \"short\": true } ], \"actions\": [ { \"type\": \"button\", \"text\": \"Visit Job\", \"url\": \"$CIRCLE_BUILD_URL\" } ], \"color\": \"#1CBF43\" } ] } " << parameters.webhook >>
+                  echo "Job completed successfully. Alert sent."
                 fi
               else
                 #If Failed
-                curl -X POST -H 'Content-type: application/json' --data '{ "attachments": [ { "fallback": "A job has failed - '$CIRCLE_BUILD_URL'", "text": "A job has failed", "fields": [ { "title": "Project", "value": "'$CIRCLE_PROJECT_REPONAME'", "short": true }, { "title": "Job Number", "value": "'$CIRCLE_BUILD_NUM'", "short": true } ], "actions": [ { "type": "button", "text": "Visit Job", "url": "'$CIRCLE_BUILD_URL'" } ], "color": "#ed5c5c" } ] }' << parameters.webhook >>
-                echo Job failed. Alert sent.
+                curl -X POST -H 'Content-type: application/json' --data "{ \"attachments\": [ { \"fallback\": \"A job has failed - $CIRCLE_BUILD_URL\", \"text\": \":red_circle: A job has failed! $SLACK_MENTIONS\", \"fields\": [ { \"title\": \"Project\", \"value\": \"$CIRCLE_PROJECT_REPONAME\", \"short\": true }, { \"title\": \"Job Number\", \"value\": \"$CIRCLE_BUILD_NUM\", \"short\": true } ], \"actions\": [ { \"type\": \"button\", \"text\": \"Visit Job\", \"url\": \"$CIRCLE_BUILD_URL\" } ], \"color\": \"#ed5c5c\" } ] } " << parameters.webhook >>
+                echo "Job failed. Alert sent."
               fi
             fi
           when: always
