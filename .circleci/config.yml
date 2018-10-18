@@ -4,7 +4,7 @@ orbs:
   slack: sandbox/slack@dev:1.2.0
 
 jobs:
-  notifyTest:
+  notifytest:
     docker: 
       - image: circleci/node
     steps:
@@ -12,7 +12,7 @@ jobs:
       - slack/notify:
           mentions: "USLACKBOT,USER1,USER2,USER3"
 
-  statusTest:
+  statustest:
     docker: 
       - image: circleci/node
     steps:
@@ -23,4 +23,5 @@ jobs:
 workflows:
   TestSlack:
     jobs:
-      - notifyTest
+      - notifytest
+      - statustest
