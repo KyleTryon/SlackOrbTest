@@ -91,9 +91,9 @@ commands:
                   echo "The job completed successfully"
                   echo '"fail_only" is set to "true". No Slack notification sent.'
                 else
-                  SLACK_MESSAGE='The job completed successfully mentions here'
+                  SLACK_MESSAGE='{"text":"What if we replace the whole text area"}'
                   echo $SLACK_MESSAGE
-                  curl -X POST -H 'Content-type:\ application/json' --data '{"text":"${SLACK_MESSAGE}"}' << parameters.webhook >>
+                  curl -X POST -H 'Content-type:\ application/json' --data $SLACK_MESSAGE << parameters.webhook >>
                   echo "Job completed successfully. Alert sent."
                 fi
               else
